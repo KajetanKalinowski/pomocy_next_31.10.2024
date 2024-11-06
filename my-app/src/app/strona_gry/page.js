@@ -120,6 +120,17 @@ export default function Strona() {
           console.log("index: " + index)
         
       }
+      const changeCheck = (id)=>{
+        var status = id.Dostepna
+        
+        if(status==true){
+          id=true
+        }else{
+          id=false
+        }
+        
+      console.log(dane)
+      }
     
     return(
         <div className="m-3">
@@ -158,8 +169,8 @@ export default function Strona() {
           </DropdownMenu>
           </div>
             <div className="flex flex-row items-center">
-          <Switch checked={gra.Dostepna? true:false} id="dos" />
-          <Label>Dostępna</Label>
+          <Switch onCheckedChange={changeCheck(`${gra.id}`)} id={gra.id} />
+          <Label htmlFor={gra.id}>Dostępna</Label>
           </div>
           </CardFooter>
         </Card>
