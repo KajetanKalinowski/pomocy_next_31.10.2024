@@ -44,7 +44,9 @@ export default function EditItem({item, onupdated}){
         formData.append("marka", dane.marka)
         formData.append("model", dane.model)
         formData.append("czas_parkowania", dane.czas_parkowania)
+        if(zdjecie){
         formData.append('zdjecie', zdjecie)
+        }
         const record = await pb.collection('samochody').update(item.id, formData);
 
 
@@ -60,6 +62,7 @@ export default function EditItem({item, onupdated}){
             <DialogHeader>
                 <DialogTitle>Are you absolutely sure?</DialogTitle>
                 <DialogDescription>
+                <div className="mt-5 flex flex-col items-center flex-wrap gap-5">
                     <div className="grid w-full max-w-sm items-center gap-1.5">
                       <Label htmlFor='marka'>Marka</Label>
                       <Input defaultValue={item.marka} onChange={(e)=>{handleInputChange('marka', e)}} type='text' id='marka' placeholder='Marka'></Input>
@@ -86,7 +89,7 @@ export default function EditItem({item, onupdated}){
                       <Label htmlFor='zdjecie'>Zdjecie</Label>
                       <Input onChange={(e)=>{handleZdjecie(e)}} type='file' id='zdjecie' placeholder='Zdjecie'></Input>
                     </div>
-
+                  </div>
                     <DialogClose asChild>
                         <Button onClick={update}>Save changes</Button>
                     </DialogClose>

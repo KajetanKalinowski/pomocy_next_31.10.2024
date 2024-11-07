@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Delete from "@/components/deleteItem";
 import EditItem from "@/components/editItem";
+import { User_avatar } from "@/components/useravatar";
 
 
 const pb = new PocketBase('http://172.16.15.138:8080');
@@ -27,6 +28,14 @@ export default function Home() {
   const [samochody, setSamochody] = useState(null)
   const [dane, setDane] = useState({marka:null, model: null, czas_parkowania:null})
   const [zdjecie, setZdjecie] = useState(null)
+
+  const [user,setUser]=useState(null)
+    useEffect(()=>{
+        setUser(pb.authStore.model)
+    },[])
+    const login = async ()=>{
+      setUser(pb.authStore.model)
+  }
   
   useEffect(()=>{
     const getData = async ()=>{
@@ -104,9 +113,9 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <h1>Pocketbase</h1>
-
+    <div> 
+      <User_avatar onLogin={login} user={user} setUser={setUser}/>
+{user &&
       <div className="flex justify-center w-full flex-wrap gap-5">
 
       
@@ -146,7 +155,7 @@ export default function Home() {
         ))
       }
       </div>
-
+}
       <div className="mt-5 flex flex-col items-center flex-wrap gap-5">
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label htmlFor='marka'>Marka</Label>
